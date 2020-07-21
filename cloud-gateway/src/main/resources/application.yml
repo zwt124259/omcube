@@ -1,0 +1,20 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+    gateway:
+      routes:
+        - id: account-service
+          uri: lb://account-service
+          predicates:
+            - Path=/sentinel/**
+        - id: auth-server
+          uri: lb://auth-server
+          predicates:
+            - Path=/oauth/**
+
+

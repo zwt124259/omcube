@@ -1,0 +1,25 @@
+sharding.jdbc.datasource.names=master,slave0
+
+#主数据源设置
+sharding.jdbc.datasource.master.type=com.zaxxer.hikari.HikariDataSource
+sharding.jdbc.datasource.master.driver-class-name=com.mysql.jdbc.Driver
+sharding.jdbc.datasource.master.jdbcUrl=jdbc:mysql://localhost:3306/test
+sharding.jdbc.datasource.master.username=root
+sharding.jdbc.datasource.master.password=123456
+# 此处设置数据源其他配置 sharding.jdbc.datasource.<data-source-name>.xxx= #数据库连接池的其它属性
+
+#从数据源设置 一般设置为读库
+sharding.jdbc.datasource.slave0.type=com.zaxxer.hikari.HikariDataSource
+sharding.jdbc.datasource.slave0.driver-class-name=com.mysql.jdbc.Driver
+sharding.jdbc.datasource.slave0.jdbcUrl=jdbc:mysql://localhost:3307/test
+sharding.jdbc.datasource.slave0.username=root
+sharding.jdbc.datasource.slave0.password=123456
+# 此处设置数据源其他配置 sharding.jdbc.datasource.<data-source-name>.xxx= #数据库连接池的其它属性
+
+#负载规则
+sharding.jdbc.config.masterslave.load-balance-algorithm-type=round_robin
+sharding.jdbc.config.masterslave.name=ms
+sharding.jdbc.config.masterslave.master-data-source-name=master
+sharding.jdbc.config.masterslave.slave-data-source-names=slave0
+#显示SQL
+sharding.jdbc.config.props.sql.show=true
