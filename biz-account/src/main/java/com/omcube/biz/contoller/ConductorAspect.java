@@ -1,6 +1,5 @@
 package com.omcube.biz.contoller;
 
-import com.omcube.comm.annotation.Conductor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

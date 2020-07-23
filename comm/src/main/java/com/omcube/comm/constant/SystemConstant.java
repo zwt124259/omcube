@@ -1,5 +1,7 @@
 package com.omcube.comm.constant;
 
+import org.redisson.api.RedissonClient;
+
 public class SystemConstant {
 
     /**
@@ -12,7 +14,7 @@ public class SystemConstant {
      */
     public static final String BIZ_MESSAGE="操作成功";
 
-
+    
     /**
      * 请求失败
      */

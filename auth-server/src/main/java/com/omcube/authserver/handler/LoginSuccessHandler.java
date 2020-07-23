@@ -45,7 +45,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
 
-
         //获取请求头信息，请求头包括client等信息
         String header = request.getHeader("Authorization");
 

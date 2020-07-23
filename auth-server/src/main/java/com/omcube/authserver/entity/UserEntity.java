@@ -1,11 +1,22 @@
 package com.omcube.authserver.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+
+@Data
+@TableName("sys_user")
 public class UserEntity implements UserDetails {
+
+    @TableId
+    private String id;
+
+    private String account;
 
     private String username;
 

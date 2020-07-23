@@ -1,74 +1,42 @@
 package com.omcube.authserver.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
+import org.springframework.util.StringUtils;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
+@Data
+@TableName("oauth_client_details")
 public class ClientEntity implements ClientDetails {
 
+    @TableId
     private String clientId;
 
-    private Set<String> resourceIds;
+    private String resourceIds;
 
     private String clientSecret;
 
-    private Set<String> scope;
+    private String scope;
 
-    private Set<String> authorizedGrantTypes;
+    private String authorizedGrantTypes;
 
-    private Set<String> registeredRedirectUri;
+    private String registeredRedirectUri;
 
-    private Set<GrantedAuthority> authorities;
+    private String authorities;
 
     private Integer accessTokenValiditySeconds;
 
     private Integer refreshTokenValiditySeconds;
 
-    private Map<String,Object> additionalInformation;
+    private String additionalInformation;
 
 
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
-    }
-
-    public void setResourceIds(Set<String> resourceIds) {
-        this.resourceIds = resourceIds;
-    }
-
-    public void setClientSecret(String clientSecret) {
-        this.clientSecret = clientSecret;
-    }
-
-    public void setScope(Set<String> scope) {
-        this.scope = scope;
-    }
-
-    public void setAuthorizedGrantTypes(Set<String> authorizedGrantTypes) {
-        this.authorizedGrantTypes = authorizedGrantTypes;
-    }
-
-    public void setRegisteredRedirectUri(Set<String> registeredRedirectUri) {
-        this.registeredRedirectUri = registeredRedirectUri;
-    }
-
-    public void setAuthorities(Set<GrantedAuthority> authorities) {
-        this.authorities = authorities;
-    }
-
-    public void setAccessTokenValiditySeconds(Integer accessTokenValiditySeconds) {
-        this.accessTokenValiditySeconds = accessTokenValiditySeconds;
-    }
-
-    public void setRefreshTokenValiditySeconds(Integer refreshTokenValiditySeconds) {
-        this.refreshTokenValiditySeconds = refreshTokenValiditySeconds;
-    }
-
-    public void setAdditionalInformation(Map<String, Object> additionalInformation) {
-        this.additionalInformation = additionalInformation;
-    }
 
     @Override
     public String getClientId() {
@@ -77,7 +45,14 @@ public class ClientEntity implements ClientDetails {
 
     @Override
     public Set<String> getResourceIds() {
-        return resourceIds;
+        Set<String> resourceIdsSet = new HashSet<String>();
+
+        if(resourceIds!=null){
+            String[] scopeArray=StringUtils.split(resourceIds,",");
+
+            resourceIdsSet.addAll( Arrays.asList(resourceIds));
+        }
+        return resourceIdsSet;
     }
 
     @Override
@@ -97,22 +72,57 @@ public class ClientEntity implements ClientDetails {
 
     @Override
     public Set<String> getScope() {
-        return scope;
+
+        Set<String> scopeSet = new HashSet<String>();
+
+        if(scope!=null){
+            String[] scopeArray=StringUtils.split(scope,",");
+
+            scopeSet.addAll( Arrays.asList(scope));
+        }
+        return scopeSet;
     }
 
     @Override
     public Set<String> getAuthorizedGrantTypes() {
-        return authorizedGrantTypes;
+
+        Set<String> authorizedGrantTypesSet = new HashSet<String>();
+
+        if(authorizedGrantTypes!=null){
+            String[] scopeArray=StringUtils.split(authorizedGrantTypes,",");
+
+            authorizedGrantTypesSet.addAll( Arrays.asList(authorizedGrantTypes));
+        }
+        return authorizedGrantTypesSet;
     }
 
     @Override
     public Set<String> getRegisteredRedirectUri() {
-        return registeredRedirectUri;
+
+        Set<String> registeredRedirectUriSet = new HashSet<String>();
+
+        if(registeredRedirectUri!=null){
+            String[] scopeArray=StringUtils.split(registeredRedirectUri,",");
+
+            registeredRedirectUriSet.addAll( Arrays.asList(registeredRedirectUri));
+        }
+        return registeredRedirectUriSet;
     }
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
-        return authorities;
+
+        Set<GrantedAuthority> authoritiesSet = new HashSet<GrantedAuthority>();
+
+        if(authorities!=null){
+            String[] scopeArray=StringUtils.split(authorities,",");
+
+            for (String str:scopeArray) {
+                GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(str);
+                authoritiesSet.add(grantedAuthority);
+            }
+        }
+        return authoritiesSet;
     }
 
     @Override
@@ -132,6 +142,6 @@ public class ClientEntity implements ClientDetails {
 
     @Override
     public Map<String, Object> getAdditionalInformation() {
-        return additionalInformation;
+        return null;
     }
 }
