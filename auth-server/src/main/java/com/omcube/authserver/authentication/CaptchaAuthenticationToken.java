@@ -5,22 +5,22 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
-public class SmsAuthenticationToken extends AbstractAuthenticationToken {
+public class CaptchaAuthenticationToken extends AbstractAuthenticationToken {
 
     private static final long serialVersionUID = 500L;
 
     private final Object principal;
     private Object credentials;
 
-    public SmsAuthenticationToken(Object principal, Object credentials) {
+    public CaptchaAuthenticationToken(Object principal, Object credentials) {
         super(null);
         this.principal = principal;
         this.credentials = credentials;
         setAuthenticated(false);
     }
 
-    public SmsAuthenticationToken(Object principal, Object credentials,
-                                               Collection<? extends GrantedAuthority> authorities) {
+    public CaptchaAuthenticationToken(Object principal, Object credentials,
+                                      Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
         this.credentials = credentials;

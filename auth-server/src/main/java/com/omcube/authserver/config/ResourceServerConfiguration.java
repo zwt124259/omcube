@@ -30,6 +30,9 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Resource
     AuthenticationEntryPoint commAuthenticationEntryPoint;
 
+    @Resource
+    CaptchaAuthenticationSecurityConfig securityConfig;
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.httpBasic()
@@ -41,8 +44,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .exceptionHandling().authenticationEntryPoint(commAuthenticationEntryPoint)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/code/*").permitAll()
                 .anyRequest()
                 .authenticated()
+                .and().apply(securityConfig)
                 .and()
                 .cors().disable();
     }

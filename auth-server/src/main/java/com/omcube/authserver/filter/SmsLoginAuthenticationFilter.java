@@ -1,6 +1,6 @@
 package com.omcube.authserver.filter;
 
-import com.omcube.authserver.authentication.SmsAuthenticationToken;
+import com.omcube.authserver.authentication.CaptchaAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 短信验证码登录
+ * 验证码登录
  */
 public class SmsLoginAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
@@ -37,13 +37,13 @@ public class SmsLoginAuthenticationFilter extends AbstractAuthenticationProcessi
                 mobile = "";
             }
             mobile = mobile.trim();
-            SmsAuthenticationToken authRequest = new SmsAuthenticationToken(mobile,null);
+            CaptchaAuthenticationToken authRequest = new CaptchaAuthenticationToken(mobile,null);
             this.setDetails(request, authRequest);
             return this.getAuthenticationManager().authenticate(authRequest);
         }
     }
 
-    protected void setDetails(HttpServletRequest request, SmsAuthenticationToken authRequest) {
+    protected void setDetails(HttpServletRequest request, CaptchaAuthenticationToken authRequest) {
         authRequest.setDetails(this.authenticationDetailsSource.buildDetails(request));
     }
 
