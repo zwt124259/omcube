@@ -45,8 +45,6 @@ public class CaptchaController {
         //生成图片验证码
         BufferedImage image = producer.createImage(text);
 
-
-
         ServletOutputStream out = response.getOutputStream();
         ImageIO.write(image, "jpg", out);
     }
